@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1013209014989",
+    "project_id": "lab4-flutter-1c747",
+    "storage_bucket": "lab4-flutter-1c747.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013209014989:android:7aec73e317228a5a063f84",
+        "android_client_info": {
+          "package_name": "com.example.phanphuochongphuc_2224802010871_lab4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013209014989-nfh9poil3gjjsk0gopobv7sh0frb454o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD89QFUaOoAey6BbVimcw-T6k8PujgCq58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013209014989-nfh9poil3gjjsk0gopobv7sh0frb454o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
