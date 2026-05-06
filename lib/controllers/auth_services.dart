@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class AuthService {
+  // Get Google Client ID from environment variables
+  static String get _googleClientId => dotenv.env['GOOGLE_CLIENT_ID'] ?? '';
+
   Future<String?> createAccountWithEmail(String email, String password) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
@@ -22,7 +27,7 @@ class AuthService {
   Future logout() async {
     await FirebaseAuth.instance.signOut();
     final googleSignIn = GoogleSignIn(
-      clientId: '1013209014989-nfh9poil3gjjsk0gopobv7sh0frb454o.apps.googleusercontent.com',
+      clientId: _googleClientId,
     );
     if (await googleSignIn.isSignedIn()) {
       await googleSignIn.signOut();
@@ -37,7 +42,7 @@ class AuthService {
   Future<String> continueWithGoogle() async {
     try {
       final googleSignIn = GoogleSignIn(
-        clientId: '1013209014989-nfh9poil3gjjsk0gopobv7sh0frb454o.apps.googleusercontent.com',
+        clientId: _googleClientId,
       );
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 

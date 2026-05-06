@@ -1,18 +1,31 @@
-rules_version='2'
-
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Deny all access by default
     match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 5, 21);
+      allow read, write: if false;
+    }
+
+    // Users collection - Users can only read/write their own document
+    match /users/{uid} {
+      allow read, update, delete: if request.auth.uid == uid;
+      allow create: if request.auth.uid == uid && 
+                       request.resource.data.uid == request.auth.uid;
+    }
+
+    // Contacts collection - Users can only access their own contacts
+    match /contacts/{contactId} {
+      allow read, update, delete: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid == request.resource.data.userId &&
+                       request.resource.data.userId != null;
+    }
+
+    // Contact sharing (optional - for future features)
+    match /contactShares/{shareId} {
+      allow read: if request.auth.uid == resource.data.sharedWith || 
+                     request.auth.uid == resource.data.sharedBy;
+      allow create: if request.auth.uid == request.resource.data.sharedBy;
+      allow delete: if request.auth.uid == resource.data.sharedBy;
     }
   }
 }
